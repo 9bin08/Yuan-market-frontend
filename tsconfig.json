@@ -5,9 +5,10 @@
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
+    "jsxImportSource": "@emotion/react",
 
     /* Bundler mode */
-    "moduleResolution": "Node",
+    "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
@@ -17,8 +18,32 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+
+    /* Paths */
+    "baseUrl": "./",
+    "paths": {
+      "@api": ["src/api"],
+      "@api/*": ["src/api/*"],
+      "@assets": ["/assets"],
+      "@assets/*": ["/assets/*"],
+      "@constants": ["src/constants"],
+      "@constants/*": ["src/constants/*"],
+      "@components": ["src/components"],
+      "@components/*": ["src/components/*"],
+      "@hooks": ["src/hooks"],
+      "@hooks/*": ["src/hooks/*"],
+      "@store": ["src/store"],
+      "@store/*": ["src/store/*"],
+      "@styles": ["src/styles"],
+      "@styles/*": ["src/styles/*"],
+      "@pages": ["src/pages"],
+      "@pages/*": ["src/pages/*"],
+      "@layout": ["src/layout"],
+      "@layout/*": ["src/layout/*"]
+    },
+    "esModuleInterop": true
   },
-  "include": ["src"],
+  "include": ["**/*.ts", "**/*.tsx"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
