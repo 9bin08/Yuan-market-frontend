@@ -7,7 +7,7 @@ import FilteredDefaultBlack from 'src/assets/icons/filtered_black.png';
 
 // 무엇_속성_색상 순으로 네이밍
 
-export const 검색_기본_회색 = ArrowLeftUpGray;
+export const 화살표_왼쪽위_회색 = ArrowLeftUpGray;
 export const 장바구니_기본_검정색 = CartDefaultBlack;
 export const 체크_기본_흰색 = CheckDefaultWhite;
 export const 닫기_기본_키컬러 = CloseDefaultKey;
