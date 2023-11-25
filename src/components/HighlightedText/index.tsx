@@ -1,6 +1,16 @@
-const HighlightedText = (text: string, query: string): JSX.Element => {
-  if (query !== '' && text.includes(query)) {
-    const parts = text.split(new RegExp(`(${query})`, 'gi'));
+import { memo } from 'react';
+
+type HighlightedTextProps = {
+  text: string;
+  query: string;
+};
+
+const HighlightedText = memo(({ text, query }: HighlightedTextProps) => {
+  if (query && text.includes(query)) {
+    const parts = text.split(
+      new RegExp(`(${query.replace(/[()]/g, '\\$&')})`, 'gi')
+    );
+
     return (
       <>
         {parts.map((part, index) =>
@@ -15,6 +25,6 @@ const HighlightedText = (text: string, query: string): JSX.Element => {
   }
 
   return <>{text}</>;
-};
+});
 
 export default HighlightedText;
