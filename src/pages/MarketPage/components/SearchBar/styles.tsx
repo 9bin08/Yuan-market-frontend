@@ -30,6 +30,10 @@ export const IconWithPosition = styled(Icon)`
 
 export const IconWrapper = styled.div`
   position: relative;
+
+  img {
+    cursor: pointer;
+  }
 `;
 
 export const CartCount = styled.span`
@@ -47,13 +51,21 @@ export const CartCount = styled.span`
 export const SearchListWrapper = styled.ul`
   width: 324px;
   min-height: calc(100vh - var(--mobile-app-header-height));
+  height: 100vh;
   margin: 0;
   padding: 0 16px 0 20px;
   display: flex;
   flex-direction: column;
   position: absolute;
+  z-index: 1;
   top: 52px;
   background-color: ${colors.white};
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
 `;
 
 export const SearchList = styled.li`

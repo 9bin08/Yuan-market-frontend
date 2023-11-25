@@ -1,62 +1,54 @@
-import { requestCategory } from '@api/category';
 import Icon from '@components/@shared/Icon';
 import Input from '@components/@shared/Input';
 import HighlightedText from '@components/HighlightedText';
-import { useCartSelector, useCartStore } from '@store/useCartStore';
-import {
-  itemsType,
-  useAuthAction,
-  useSearchCategorySelector,
-} from '@store/useSearchCategory';
-import { useEffect, useState } from 'react';
+import { useSearchListQuery } from '@pages/MarketPage/queries/useSearchList';
+import { useCartSelector } from '@store/useCartStore';
+import { useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import * as S from './styles';
 
 const SearchBar = () => {
-  const [searchList, setSearchList] = useState<[]>([]);
-  const { keyword, searchItems } = useSearchCategorySelector([
-    'keyword',
-    'searchItems',
-  ]);
+  const [isShowSearchList, setIsShowSearchList] = useState<boolean>(false);
   const { cartItems } = useCartSelector(['cartItems']);
-
-  const { setKeyword, setSearchItems } = useAuthAction();
-
-  const onClickClearIcon = () => {
-    setKeyword('');
-    setSearchItems([]);
-  };
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [keyword, setKeyword] = useState<string>(
+    searchParams.get('keyword') || ''
+  );
+  const { data: searchList } = useSearchListQuery(keyword);
+  const navigate = useNavigate();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newKeyword = e.target.value;
     setKeyword(newKeyword);
   };
 
-  const handleSearchItemClick = (item: itemsType) => {
-    setSearchItems([item]);
+  const handleSearchItemClick = (title: string) => {
+    setIsShowSearchList(false);
+    setKeyword(title);
+    updateSearchParams('keyword', title);
   };
 
   const handleEnterKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && keyword.trim()) {
-      setSearchItems([...searchList]);
+      setIsShowSearchList(false);
+      updateSearchParams('keyword', keyword);
     }
   };
 
-  useEffect(() => {
-    const fetchCategory = async () => {
-      try {
-        const response = await requestCategory(keyword);
-        setSearchList(response.data.data);
-      } catch (error) {
-        // TODO : 에러 처리
-      }
-    };
+  const onClickClearIcon = () => {
+    setKeyword('');
+    updateSearchParams('keyword', '');
+    updateSearchParams('category', '');
+  };
 
-    if (keyword.trim()) {
-      fetchCategory();
+  const updateSearchParams = (param: string, value: string) => {
+    if (value) {
+      searchParams.set(param, value);
     } else {
-      setSearchList([]);
+      searchParams.delete(param);
     }
-  }, [keyword]);
+    setSearchParams(searchParams);
+  };
 
   return (
     <>
@@ -66,7 +58,9 @@ const SearchBar = () => {
             value={keyword}
             onChange={handleInputChange}
             onKeyPress={handleEnterKeyPress}
+            onFocus={() => setIsShowSearchList(true)}
           />
+
           {keyword.length > 0 && (
             <S.IconWithPosition
               name={'닫기_기본_회색'}
@@ -77,21 +71,25 @@ const SearchBar = () => {
         </S.InputWrapper>
 
         <S.IconWrapper>
-          <Icon name="장바구니_기본_검정색" size={24} />
+          <Icon
+            name="장바구니_기본_검정색"
+            size={24}
+            onClick={() => navigate('/cart')}
+          />
           {cartItems.length > 0 && (
             <S.CartCount>{cartItems.length}</S.CartCount>
           )}
         </S.IconWrapper>
       </S.SearchBarContainer>
-      {keyword.length > 0 && searchItems.length === 0 && (
+      {isShowSearchList && searchList && (
         <S.SearchListWrapper>
-          {searchList.map((item: itemsType) => (
+          {searchList.map((item: string, index: number) => (
             <S.SearchList
-              key={item.title}
+              key={index}
               onClick={() => handleSearchItemClick(item)}
             >
               <S.SearchName>
-                {HighlightedText(item.title, keyword)}
+                <HighlightedText text={item} query={keyword} />
               </S.SearchName>
               <Icon name="화살표_왼쪽위_회색" size={24} />
             </S.SearchList>
