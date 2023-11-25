@@ -9,7 +9,7 @@ const handlers = [
     const flatCategories = categories.flatMap((category:string) => category.split('/'));
 
     const responseData = goodsData.filter(({ title }) => {
-      const includesCategory = title.includes(keyword) && (flatCategories.length === 0 || flatCategories.some((category: string) => category.includes(title)));
+      const includesCategory = title.includes(keyword) && (flatCategories.length === 0 || flatCategories.some((category: string) => title.includes(category)));
       return includesCategory;
     });
 
