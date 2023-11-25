@@ -8,21 +8,49 @@ import {
 } from '@styles/typography';
 
 export const MarketPageContainer = styled.section`
-  padding: 21px 19px 21px 21px;
+  padding: 10px 19px 21px 21px;
   overflow-y: scroll;
+  height: 100%;
+`;
+
+export const FilterOptionContainer = styled.div`
+  width: 100%;
+  height: 34px;
+  overflow-x: auto;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+`;
+
+export const ClipWrapper = styled.div`
+  width: 90%;
+  height: 34px;
+  display: inline-flex;
+  flex-direction: row;
+  gap: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  overflow-x: auto;
+
+  &::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
 `;
 
 export const IconWithMargin = styled(Icon)`
   display: block;
   margin-left: auto;
-  margin-bottom: 22px;
   height: 12px;
+  cursor: pointer;
 `;
 
 export const MarketItemListWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 16px;
+  margin-bottom: 100px;
 `;
 
 export const MarketItemCard = styled.div`
