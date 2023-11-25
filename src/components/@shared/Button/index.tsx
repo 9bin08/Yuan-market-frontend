@@ -4,13 +4,13 @@ export type ButtonPriority = 'primary' | 'secondary';
 
 type ButtonProps = {
   label: string;
-  priority: ButtonPriority;
+  disabled: boolean;
   onClickHandler?: () => void;
 };
 
-const Button = ({ label, priority, onClickHandler }: ButtonProps) => {
+const Button = ({ label, disabled, onClickHandler }: ButtonProps) => {
   return (
-    <S.Button priority={priority} onClick={onClickHandler}>
+    <S.Button disabled={disabled} onClick={onClickHandler}>
       {label}
     </S.Button>
   );

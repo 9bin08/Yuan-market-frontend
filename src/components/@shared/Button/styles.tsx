@@ -1,30 +1,24 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { colors } from '@styles/colors';
-import { ButtonPriority } from './index';
+import { Title100SemiBold } from '@styles/typography';
 
-export const Button = styled.button<{ priority: ButtonPriority }>`
+export const Button = styled.button<{ disabled: boolean }>`
   border: none;
-  cursor: pointer;
-  font-weight: 500;
-  font-size: 14px;
-  border-radius: 6px;
-  background-color: transparent;
+  border-radius: 16px;
+  background-color: ${colors.key002};
+  color: ${colors.white};
   text-align: center;
   width: 100%;
   height: 100%;
-  ${({ priority }) => mapToBtnType(priority)};
-`;
+  cursor: pointer;
 
-const mapToBtnType = (priority: ButtonPriority) => {
-  switch (priority) {
-    case 'primary':
-      return css({
-        color: colors.white,
-      });
-    case 'secondary':
-      return css({
-        color: colors.gray002,
-      });
-  }
-};
+  ${Title100SemiBold}
+  ${({ disabled }) =>
+    disabled &&
+    css`
+      background-color: ${colors.gray003};
+      color: ${colors.gray008};
+      cursor: not-allowed;
+    `}
+`;
