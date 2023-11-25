@@ -1,7 +1,7 @@
-import { itemsType } from './useSearchCategory';
 import { withSelector } from './middleware';
 import { devtools, persist } from 'zustand/middleware';
 import { create } from 'zustand';
+import { itemsType } from '@pages/MarketPage';
 
 
 type cartState = {
