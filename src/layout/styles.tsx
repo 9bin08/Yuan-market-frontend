@@ -5,4 +5,5 @@ export const ChildWrapper = styled.main`
   max-width: var(--mobile-max-width);
   margin: 0 auto;
   background-color: ${colors.white};
+  height: 100vh;
 `;

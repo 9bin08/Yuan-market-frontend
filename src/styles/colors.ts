@@ -13,6 +13,8 @@ export const colors = {
     gray004: '#DEE6E7',
     gray005: '#9F9F9F',
     gray006: '#757E88',
+    gray007: '#DCDFE3',
+    gray008: '#CDD1D6',
 
     key001: '#00B1BB',
     key002: '#24ABBE',
